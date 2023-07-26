@@ -15,7 +15,7 @@
 
 # Introduction
 
-**xiaohongshu** is a crawling application designed to extract data from [xiaohongshu](https://www.xiaohongshu.com/explore) page.
+[tanpenggood/xiaohongshu](https://github.com/tanpenggood/xiaohongshu) is a crawling application designed to extract data from [xiaohongshu](https://www.xiaohongshu.com/explore) page.
 
 **crawling data range**: only parsed data in ` window.__INITIAL_STATE__` of xiaohongshu page.
 
