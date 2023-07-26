@@ -148,7 +148,7 @@ public class XhsCrawlabUI extends Application {
         ButtonType result = confirm();
         if (Objects.equals(ButtonType.OK, result)) {
             for (AppUser user : userList) {
-//            XhsClient.crawlHome(user.getHomeUrl());
+                XhsCrawlab.crawlHome(user.getHomeUrl());
             }
             Alert success = new Alert(Alert.AlertType.INFORMATION);
             success.setTitle("Success");
