@@ -6,7 +6,6 @@ import com.itplh.xhs.domain.UserInfo;
 import com.itplh.xhs.parse.JsonParserSelector;
 import org.jsoup.nodes.Document;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,22 +15,9 @@ import java.util.concurrent.TimeUnit;
  * @author: tanpenggood
  * @date: 2023-07-21 00:08
  */
-public class App {
+public class XhsCrawlab {
 
-    public static void main(String[] args) {
-
-        List<String> users = Arrays.asList(
-//                "https://www.xiaohongshu.com/user/profile/64672d6500000000290173c7", // 栖梧起名
-//                "https://www.xiaohongshu.com/user/profile/645de545000000002a00bdd7", // 昱安起名
-                "https://www.xiaohongshu.com/user/profile/62bc2c1c000000001b025a19" // 懿安国学
-        );
-
-        for (String user : users) {
-            spider(user);
-        }
-    }
-
-    public static void spider(String homeUrl) {
+    public static void crawlHome(String homeUrl) {
         System.out.println(homeUrl);
         Document document = HttpUtils.requestGet(homeUrl, headers, delay1Second).get();
 
@@ -46,15 +32,15 @@ public class App {
         for (int i = 0; i < detailUrls.size(); i++) {
             int no = i + 1;
             System.out.println(String.format("================================================== NO.%s %s fans:%s notes:%s start", no, userInfo.getNickname(), userInfo.getFans(), detailUrls.size()));
-            // detail url
+            // crawlDetail url
             String detailUrl = detailUrls.get(i);
             System.out.println("detailUrl: " + detailUrl);
-            detail(detailUrl);
+            crawlDetail(detailUrl);
             System.out.println(String.format("================================================== NO.%s %s fans:%s notes:%s end", no, userInfo.getNickname(), userInfo.getFans(), detailUrls.size()));
         }
     }
 
-    public static void detail(String detailUrl) {
+    public static void crawlDetail(String detailUrl) {
         Document document = HttpUtils.requestGet(detailUrl, headers, delay1Second).get();
         // parse note data - json
         JsonParserSelector.parseDetailPageJson(document);
