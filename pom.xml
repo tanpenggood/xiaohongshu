@@ -7,25 +7,55 @@
     <groupId>com.itplh</groupId>
     <artifactId>xiaohongshu</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <description>抓小红书笔记，未登录</description>
+    <description>抓小红书笔记</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <absengine.version>1.1.2</absengine.version>
+        <junit.version>4.13</junit.version>
+    </properties>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.itplh.opensource/absengine -->
         <dependency>
             <groupId>com.itplh.opensource</groupId>
             <artifactId>absengine</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <version>2.6.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13</version>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/com.itplh.opensource/absengine -->
+            <dependency>
+                <groupId>com.itplh.opensource</groupId>
+                <artifactId>absengine</artifactId>
+                <version>${absengine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
