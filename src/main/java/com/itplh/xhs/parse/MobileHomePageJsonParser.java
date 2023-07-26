@@ -2,8 +2,8 @@ package com.itplh.xhs.parse;
 
 import com.itplh.xhs.constant.DeviceEnum;
 import com.itplh.xhs.constant.JSONPathConstant;
-import com.itplh.xhs.domain.UserInfo;
 import com.itplh.xhs.constant.URLConstant;
+import com.itplh.xhs.domain.UserInfo;
 import com.itplh.xhs.util.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 

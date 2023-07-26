@@ -2,8 +2,6 @@ package com.itplh.xhs.domain.desktop;
 
 import lombok.Data;
 
-import java.util.Map;
-
 /**
  * example:
  * {

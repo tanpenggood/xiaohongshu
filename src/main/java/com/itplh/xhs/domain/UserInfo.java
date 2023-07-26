@@ -2,10 +2,10 @@ package com.itplh.xhs.domain;
 
 import com.itplh.absengine.util.StringUtils;
 import com.itplh.xhs.constant.DeviceEnum;
-import com.itplh.xhs.domain.desktop.Interaction;
 import com.itplh.xhs.constant.JSONPathConstant;
 import com.itplh.xhs.constant.URLConstant;
 import com.itplh.xhs.domain.desktop.BasicInfo;
+import com.itplh.xhs.domain.desktop.Interaction;
 import com.itplh.xhs.util.JSONUtil;
 import lombok.Getter;
 import lombok.Setter;
