@@ -91,3 +91,9 @@ xiaohongshu
 - lombok:1.18.12
 - logback-classic:1.2.3
 - junit:4.13
+
+# Build
+
+```bash
+mvn clean package -Dmaven.test.skip=true
+```
