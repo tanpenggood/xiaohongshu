@@ -1,4 +1,4 @@
-package com.itplh.xhs.domain;
+package com.itplh.xhs.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
