@@ -19,6 +19,12 @@
 
 **crawling data range**: only parsed data in `window.__INITIAL_STATE__` of xiaohongshu page.
 
+# Development Environment
+
+- windows 11
+- jdk 1.8
+- maven 3.6.0
+
 # Useage
 
 ## Use UI
