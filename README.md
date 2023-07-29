@@ -70,7 +70,6 @@ xiaohongshu
 │   │   ├── parse            # parse json data (parse window.__INITIAL_STATE__)
 │   │   ├── ui               # build ui, use javafx    
 │   │   ├── util               
-│   │   ├── util               
 │   │   ├── XhsCrawlab       # core api   
 │   │   └── XhsCrawlabUI     # ui
 │   └── resources
