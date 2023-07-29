@@ -1,15 +1,11 @@
 package com.itplh.xhs;
 
+import com.itplh.xhs.ui.User;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -25,20 +21,20 @@ import java.util.Objects;
 public class XhsCrawlabUI extends Application {
 
     // 创建表格视图
-    private static TableView<AppUser> tableView = new TableView<>();
+    private static TableView<User> tableView = new TableView<>();
 
     // 初始化列表数据
-    private static ObservableList<AppUser> userList = FXCollections.observableArrayList();
-    private static List<AppUser> defaultUsers = new ArrayList();
+    private static ObservableList<User> userList = FXCollections.observableArrayList();
+    private static List<User> defaultUsers = new ArrayList();
 
     // 创建输入框和操作按钮
     private static TextField nicknameTextField = new TextField();
     private static TextField urlTextField = new TextField();
 
     static {
-        defaultUsers.add(new AppUser("栖梧起名", "https://www.xiaohongshu.com/user/profile/64672d6500000000290173c7"));
-        defaultUsers.add(new AppUser("昱安起名", "https://www.xiaohongshu.com/user/profile/645de545000000002a00bdd7"));
-        defaultUsers.add(new AppUser("懿安国学", "https://www.xiaohongshu.com/user/profile/62bc2c1c000000001b025a19"));
+        defaultUsers.add(new User("栖梧起名", "https://www.xiaohongshu.com/user/profile/64672d6500000000290173c7"));
+        defaultUsers.add(new User("昱安起名", "https://www.xiaohongshu.com/user/profile/645de545000000002a00bdd7"));
+        defaultUsers.add(new User("懿安国学", "https://www.xiaohongshu.com/user/profile/62bc2c1c000000001b025a19"));
         userList.addAll(defaultUsers);
         tableView.setItems(userList);
 
@@ -54,15 +50,15 @@ public class XhsCrawlabUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         // 创建表格列-nickname
-        TableColumn<AppUser, String> nicknameColumn = new TableColumn<>("Nickname");
+        TableColumn<User, String> nicknameColumn = new TableColumn<>("Nickname");
         nicknameColumn.setMinWidth(100.0);
         tableView.getColumns().add(nicknameColumn);
-        nicknameColumn.setCellValueFactory(new PropertyValueFactory<AppUser, String>("nickname"));
+        nicknameColumn.setCellValueFactory(new PropertyValueFactory<>("nickname"));
         // 创建表格列-homeUrl
-        TableColumn<AppUser, String> urlColumn = new TableColumn<>("Home URL");
+        TableColumn<User, String> urlColumn = new TableColumn<>("Home URL");
         urlColumn.setMinWidth(400.0);
         tableView.getColumns().add(urlColumn);
-        urlColumn.setCellValueFactory(new PropertyValueFactory<AppUser, String>("homeUrl"));
+        urlColumn.setCellValueFactory(new PropertyValueFactory<>("homeUrl"));
 
         // 按钮-add
         Button addButton = new Button("Add");
@@ -120,7 +116,7 @@ public class XhsCrawlabUI extends Application {
             return;
         }
         // Append element to the end of this list
-        userList.add(new AppUser(nickname.trim(), url.trim()));
+        userList.add(new User(nickname.trim(), url.trim()));
         // 选中最后一行数据
         tableView.getSelectionModel().selectLast();
         // clear
@@ -147,7 +143,7 @@ public class XhsCrawlabUI extends Application {
         }
         ButtonType result = confirm();
         if (Objects.equals(ButtonType.OK, result)) {
-            for (AppUser user : userList) {
+            for (User user : userList) {
                 XhsCrawlab.crawlHome(user.getHomeUrl());
             }
             Alert success = new Alert(Alert.AlertType.INFORMATION);
