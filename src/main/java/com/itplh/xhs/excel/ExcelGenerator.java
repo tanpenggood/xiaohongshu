@@ -7,12 +7,12 @@ import com.itplh.xhs.domain.UserInfo;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NoteGenerator {
+public class ExcelGenerator {
 
     /**
      * @param userInfo
      */
-    private static void writeNotes2Excel(UserInfo userInfo) {
+    public static void writeNotes2Excel(UserInfo userInfo) {
         List<Object> data = userInfo.getNotes().stream()
                 .map(n -> {
                     NoteExcel excel = new NoteExcel();
