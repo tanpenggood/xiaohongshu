@@ -32,17 +32,11 @@ public class JsonParserSelector {
     }
 
     /**
-     * 踩坑：com.alibaba.fastjson2.JSONException: illegal input u
-     * <blockquote><pre>
-     *     Object login = JSONUtil.extract(json, JSONPath.of("$.login"));
-     * </pre></blockquote>
-     * 报错原因：{ "login": { "loginMethod": undefined } }
-     *
      * @param json
      * @return
      */
     private static boolean isDesktop(String json) {
-        Object login = JSONUtil.extract(json, JSONPath.of("$.user.loggedIn"));
+        Object login = JSONUtil.extract(json, JSONPath.of("$.user"));
         return login != null;
     }
 
@@ -53,8 +47,30 @@ public class JsonParserSelector {
         return scriptOptional.map(e -> {
             int beginIndex = e.toString().indexOf(keywords) + keywords.length() + 1;
             int endIndex = e.toString().lastIndexOf("}") + 1;
-            return e.toString().substring(beginIndex, endIndex);
+            String json = e.toString().substring(beginIndex, endIndex);
+            return jsonFormat(json);
         });
+    }
+
+    /**
+     * Example:
+     * <p>
+     * {"login": {"loginMethod": undefined}} format to {"login": {"loginMethod": “undefined”}}
+     *
+     * @param json
+     * @return
+     */
+    private static String jsonFormat(String json) {
+        StringBuilder jsonBuilder = new StringBuilder();
+        String[] jsonChunks = json.split("undefined");
+        for (int i = 0; i < jsonChunks.length; i++) {
+            String chunk = jsonChunks[i];
+            if (i > 0 && !chunk.startsWith("\"")) {
+                jsonBuilder.append('"').append("undefined").append('"');
+            }
+            jsonBuilder.append(chunk);
+        }
+        return jsonBuilder.toString();
     }
 
 }

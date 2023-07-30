@@ -17,15 +17,46 @@
 
 [tanpenggood/xiaohongshu](https://github.com/tanpenggood/xiaohongshu) is a crawling application designed to extract data from [xiaohongshu](https://www.xiaohongshu.com/explore) page.
 
-**crawling data range**: only parsed data in ` window.__INITIAL_STATE__` of xiaohongshu page.
+**crawling data range**: only parsed data in `window.__INITIAL_STATE__` of xiaohongshu page.
+
+# Development Environment
+
+- windows 11
+- jdk 1.8
+- maven 3.6.0
 
 # Useage
 
-1. Set some user homepage link of xiaohongshu user that you want to crawl.
+## Use UI
 
-2. Set your cookie in headers, it's optional.
+Run `com.itplh.xhs.XhsCrawlabUI`
 
-3. Run `com.itplh.xhs.App`
+See:
+
+![home.png](home.png)
+
+## Use API
+
+reference test class: `com.itplh.xhs.XhsCrawlabTest`
+
+```java
+public class XhsCrawlabTest {
+
+    @Test
+    public void crawlHome() {
+        // url带参数时，请求头可不携带cookie
+        String url = "https://www.xiaohongshu.com/user/profile/64a91898000000001001e673?xhsshare=CopyLink&appuid=62064cd3000000001000acd1&apptime=1690553952";
+        UserInfo userInfo1 = XhsCrawlab.crawlHome(url);
+        Assert.assertNotNull(userInfo1);
+        Assert.assertNotNull(userInfo1.getRedId());
+        // url不带参数时，请求头需要携带cookie
+        String url2 = "https://www.xiaohongshu.com/user/profile/64a91898000000001001e673";
+        UserInfo userInfo2 = XhsCrawlab.crawlHome(url2);
+        Assert.assertNotNull(userInfo2);
+        Assert.assertNotNull(userInfo2.getRedId());
+    }
+}
+```
 
 # Project Structure
 
@@ -35,9 +66,12 @@ xiaohongshu
 │   ├── java/com.itplh.xhs       
 │   │   ├── constant
 │   │   ├── domain
-│   │   ├── parse            # parse json data
+│   │   ├── excel            # generate excel, use easyexcel
+│   │   ├── parse            # parse json data (parse window.__INITIAL_STATE__)
+│   │   ├── ui               # build ui, use javafx    
 │   │   ├── util               
-│   │   └── App              # main
+│   │   ├── XhsCrawlab       # core api   
+│   │   └── XhsCrawlabUI     # ui
 │   └── resources
 │       ├── desktop          # response data of desktop access xiaohongshu
 │       ├── mobile           # response data of mobile access xiaohongshu
@@ -56,3 +90,9 @@ xiaohongshu
 - lombok:1.18.12
 - logback-classic:1.2.3
 - junit:4.13
+
+# Build
+
+```bash
+mvn clean package -Dmaven.test.skip=true
+```
