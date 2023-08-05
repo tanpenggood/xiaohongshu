@@ -39,24 +39,7 @@ See:
 
 reference test class: `com.itplh.xhs.XhsCrawlabTest`
 
-```java
-public class XhsCrawlabTest {
-
-    @Test
-    public void crawlHome() {
-        // url带参数时，请求头可不携带cookie
-        String url = "https://www.xiaohongshu.com/user/profile/64a91898000000001001e673?xhsshare=CopyLink&appuid=62064cd3000000001000acd1&apptime=1690553952";
-        UserInfo userInfo1 = XhsCrawlab.crawlHome(url);
-        Assert.assertNotNull(userInfo1);
-        Assert.assertNotNull(userInfo1.getRedId());
-        // url不带参数时，请求头需要携带cookie
-        String url2 = "https://www.xiaohongshu.com/user/profile/64a91898000000001001e673";
-        UserInfo userInfo2 = XhsCrawlab.crawlHome(url2);
-        Assert.assertNotNull(userInfo2);
-        Assert.assertNotNull(userInfo2.getRedId());
-    }
-}
-```
+https://github.com/tanpenggood/xiaohongshu/blob/075cdda85116e1039836ad7ec59c28ea6daebba1/src/test/java/com/itplh/xhs/XhsCrawlabTest.java#L9-L21
 
 # Project Structure
 
