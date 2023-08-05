@@ -3,6 +3,7 @@ package com.itplh.xhs.excel;
 import com.alibaba.excel.EasyExcel;
 import com.itplh.xhs.constant.URLConstant;
 import com.itplh.xhs.domain.UserInfo;
+import com.itplh.xhs.util.NumberUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,10 +21,10 @@ public class ExcelGenerator {
                     excel.setTitle(n.getTitle());
                     excel.setPublishTime(n.getTime());
                     excel.setNoteUrl(URLConstant.PREFIX_DETAIL + n.getNoteId());
-                    excel.setLikedCount(Integer.valueOf(n.getInteractInfo().getLikedCount()));
-                    excel.setCollectedCount(Integer.valueOf(n.getInteractInfo().getCollectedCount()));
-                    excel.setCommentCount(Integer.valueOf(n.getInteractInfo().getCommentCount()));
-                    excel.setShareCount(Integer.valueOf(n.getInteractInfo().getShareCount()));
+                    excel.setLikedCount(NumberUtil.valueOf(n.getInteractInfo().getLikedCount()));
+                    excel.setCollectedCount(NumberUtil.valueOf(n.getInteractInfo().getCollectedCount()));
+                    excel.setCommentCount(NumberUtil.valueOf(n.getInteractInfo().getCommentCount()));
+                    excel.setShareCount(NumberUtil.valueOf(n.getInteractInfo().getShareCount()));
 
                     StringBuilder tagBuilder = new StringBuilder();
                     n.getTagList().stream().forEach(t -> tagBuilder.append("#").append(t.getName()).append(" "));
