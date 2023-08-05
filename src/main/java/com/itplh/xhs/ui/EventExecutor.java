@@ -53,7 +53,7 @@ public class EventExecutor {
         if (Objects.equals(ButtonType.OK, result)) {
             try {
                 for (User user : userList) {
-                    UserInfo userInfo = XhsCrawlab.crawlHome(user.getHomeUrl());
+                    UserInfo userInfo = XhsCrawlab.getInstance().crawlHome(user.getHomeUrl());
                     // write notes data to excel
                     ExcelGenerator.writeNotes2Excel(userInfo);
                 }
