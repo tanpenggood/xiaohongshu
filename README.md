@@ -37,9 +37,15 @@ See:
 
 ## Use API
 
-reference test class: `com.itplh.xhs.XhsCrawlabTest`
+- crawl notes
 
-https://github.com/tanpenggood/xiaohongshu/blob/075cdda85116e1039836ad7ec59c28ea6daebba1/src/test/java/com/itplh/xhs/XhsCrawlabTest.java#L9-L21
+  reference test class: `com.itplh.xhs.XhsCrawlabTest`
+  
+  https://github.com/tanpenggood/xiaohongshu/blob/075cdda85116e1039836ad7ec59c28ea6daebba1/src/test/java/com/itplh/xhs/XhsCrawlabTest.java#L9-L21
+
+- save note to excel
+
+  `com.itplh.xhs.excel.ExcelGenerator.writeNotes2Excel(UserInfo userInfo)`
 
 # Project Structure
 
