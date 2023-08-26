@@ -1,14 +1,23 @@
-package com.itplh.xhs.ui;
+package com.itplh.xhs.ui.home;
 
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-public class LayoutBuilder {
+public class HomeTabBuilder {
 
-    public static Parent buildRoot(ControlContext context) {
+    public static Tab buildTab() {
+        Tab tab = new Tab("Home");
+        tab.setContent(getContentNode());
+        // 禁用关闭按钮
+        tab.setClosable(false);
+        return tab;
+    }
+
+    private static AnchorPane getContentNode() {
+        ControlContext context = new ControlContext();
         context.getNicknameTextField().setPromptText("Please enter nickname");
         context.getUrlTextField().setPromptText("Please enter user home url");
 
@@ -42,33 +51,32 @@ public class LayoutBuilder {
         crawlButton.setOnAction(event -> eventExecutor.crawl(context));
 
         // 创建布局容器
-        AnchorPane root = new AnchorPane();
+        AnchorPane anchorPane = new AnchorPane();
         // line 1
-        root.getChildren().add(context.getNicknameTextField());
+        anchorPane.getChildren().add(context.getNicknameTextField());
         AnchorPane.setTopAnchor(context.getNicknameTextField(), 10.0);
         AnchorPane.setLeftAnchor(context.getNicknameTextField(), 10.0);
-        root.getChildren().add(context.getUrlTextField());
+        anchorPane.getChildren().add(context.getUrlTextField());
         AnchorPane.setTopAnchor(context.getUrlTextField(), 10.0);
         AnchorPane.setLeftAnchor(context.getUrlTextField(), 180.0);
-        root.getChildren().add(addButton);
+        anchorPane.getChildren().add(addButton);
         AnchorPane.setTopAnchor(addButton, 10.0);
         AnchorPane.setLeftAnchor(addButton, 350.0);
-        root.getChildren().add(resetButton);
+        anchorPane.getChildren().add(resetButton);
         AnchorPane.setTopAnchor(resetButton, 10.0);
         AnchorPane.setLeftAnchor(resetButton, 400.0);
-        root.getChildren().add(deleteButton);
+        anchorPane.getChildren().add(deleteButton);
         AnchorPane.setTopAnchor(deleteButton, 10.0);
         AnchorPane.setLeftAnchor(deleteButton, 458.0);
         // line 2
-        root.getChildren().add(crawlButton);
+        anchorPane.getChildren().add(crawlButton);
         AnchorPane.setTopAnchor(crawlButton, 50.0);
         AnchorPane.setLeftAnchor(crawlButton, 220.0);
         // line 3
-        root.getChildren().add(context.getTableView());
+        anchorPane.getChildren().add(context.getTableView());
         AnchorPane.setTopAnchor(context.getTableView(), 90.0);
         AnchorPane.setLeftAnchor(context.getTableView(), 50.0);
-
-        return root;
+        return anchorPane;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.itplh.xhs.ui;
+package com.itplh.xhs.ui.home;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
