@@ -5,6 +5,8 @@ import com.itplh.xhs.constant.URLConstant;
 import com.itplh.xhs.domain.UserInfo;
 import com.itplh.xhs.util.NumberUtil;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,8 +41,17 @@ public class ExcelGenerator {
                     excel.setImageUrls(imageUrlBuilder.toString());
                     return excel;
                 }).collect(Collectors.toList());
-        String fileName = userInfo.getNickname() + "_" + userInfo.getRedId() + ".xlsx";
-        EasyExcel.write(fileName, NoteExcel.class).sheet().doWrite(data);
+        StringBuilder fileNameBuilder = new StringBuilder();
+        fileNameBuilder.append(userInfo.getNickname()).append("_").append(userInfo.getRedId())
+                .append("_").append(timestamp()).append(".xlsx");
+        EasyExcel.write(fileNameBuilder.toString(), NoteExcel.class).sheet().doWrite(data);
+    }
+
+    private static String timestamp() {
+        LocalDateTime now = LocalDateTime.now();
+        String ymd = DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(now);
+        int microsecond = now.getNano() / 1_000_000;
+        return ymd + microsecond;
     }
 
 }

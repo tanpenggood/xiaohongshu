@@ -1,10 +1,11 @@
 package com.itplh.xhs;
 
-import com.itplh.xhs.ui.ControlContext;
-import com.itplh.xhs.ui.LayoutBuilder;
+import com.itplh.xhs.ui.RootBuilder;
+import com.itplh.xhs.util.AlertUtil;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
@@ -20,11 +21,16 @@ public class XhsCrawlabUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         // 创建场景
-        Parent root = LayoutBuilder.buildRoot(new ControlContext());
-        Scene scene = new Scene(root, 600, 520);
+        Parent root = RootBuilder.build();
+        Scene scene = new Scene(root, 600, 560);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Crawl XHS Note");
         primaryStage.show();
+
+        AlertUtil.alert(Alert.AlertType.INFORMATION,
+                "Welcome",
+                "Welcome to XHS Crawlab UI",
+                "Please set up your cookie and add some users, it will start working.");
     }
 
 }

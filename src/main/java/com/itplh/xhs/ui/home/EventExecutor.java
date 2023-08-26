@@ -1,11 +1,12 @@
-package com.itplh.xhs.ui;
+package com.itplh.xhs.ui.home;
 
 import com.itplh.absengine.util.CollectionUtils;
+import com.itplh.absengine.util.StringUtils;
 import com.itplh.xhs.XhsCrawlab;
 import com.itplh.xhs.domain.UserInfo;
 import com.itplh.xhs.excel.ExcelGenerator;
+import com.itplh.xhs.util.AlertUtil;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,41 +48,27 @@ public class EventExecutor {
     public void crawl(ControlContext context) {
         ObservableList<User> userList = context.getUserList();
         if (CollectionUtils.isEmpty(userList)) {
+            AlertUtil.failed("Please add some users first in the tab.");
             return;
         }
-        ButtonType result = confirm(context);
-        if (Objects.equals(ButtonType.OK, result)) {
-            try {
-                for (User user : userList) {
-                    UserInfo userInfo = XhsCrawlab.getInstance().crawlHome(user.getHomeUrl());
-                    // write notes data to excel
-                    ExcelGenerator.writeNotes2Excel(userInfo);
-                }
-                Alert success = new Alert(Alert.AlertType.INFORMATION);
-                success.setTitle("Success");
-                success.setHeaderText("Operation Successfully!");
-                success.setContentText("Please view Excel in the current directory.");
-                success.showAndWait();
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-                Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setTitle("Error");
-                error.setHeaderText("Operation Failed!");
-                error.setContentText("Please contact developers, some errors have occurred.");
-                error.showAndWait();
-            }
+        if (StringUtils.isBlank(XhsCrawlab.getInstance().getCookie())) {
+            AlertUtil.warning("Please set up your cookie first in Settings tab, otherwise only crawl a little note as guest.");
         }
-    }
-
-    public ButtonType confirm(ControlContext context) {
-        // 创建一个确认对话框
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("确认");
-
-        alert.setHeaderText(String.format("确定要爬取这%s位用户的笔记吗？", context.getUserList().size()));
-        alert.setContentText("点击确定继续，点击取消关闭。");
-        // 显示对话框并等待用户响应
-        return alert.showAndWait().orElse(ButtonType.CANCEL);
+        ButtonType result = AlertUtil.confirm(String.format("确定要爬取这%s位用户的笔记吗？", context.getUserList().size()));
+        if (Objects.equals(ButtonType.CANCEL, result)) {
+            return;
+        }
+        try {
+            for (User user : userList) {
+                UserInfo userInfo = XhsCrawlab.getInstance().crawlHome(user.getHomeUrl());
+                // write notes data to excel
+                ExcelGenerator.writeNotes2Excel(userInfo);
+            }
+            AlertUtil.success("Please view Excel in the current directory.");
+        } catch (Exception e) {
+            AlertUtil.failed("Please contact developers, some errors have occurred.");
+            log.error(e.getMessage(), e);
+        }
     }
 
 }
