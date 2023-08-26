@@ -5,6 +5,7 @@ import com.itplh.xhs.domain.common.Image;
 import com.itplh.xhs.domain.common.Tag;
 import com.itplh.xhs.domain.mobile.NoteData;
 import com.itplh.xhs.util.JSONUtil;
+import com.itplh.xhs.util.StringBuilderUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,7 +31,7 @@ public class MobileDetailPageJsonParser implements DetailJsonParser {
         for (Tag tag : noteData.getHashTags()) {
             tagBuilder.append("#").append(tag.getName()).append(" ");
         }
-        tagBuilder.deleteCharAt(tagBuilder.length() - 1);
+        StringBuilderUtil.deleteCharAtLast(tagBuilder);
         System.out.println(tagBuilder);
         // image list
         for (Image image : noteData.getImageList()) {

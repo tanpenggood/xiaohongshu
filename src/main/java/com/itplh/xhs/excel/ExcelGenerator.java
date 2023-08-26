@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.itplh.xhs.constant.URLConstant;
 import com.itplh.xhs.domain.UserInfo;
 import com.itplh.xhs.util.NumberUtil;
+import com.itplh.xhs.util.StringBuilderUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,14 +31,13 @@ public class ExcelGenerator {
 
                     StringBuilder tagBuilder = new StringBuilder();
                     n.getTagList().stream().forEach(t -> tagBuilder.append("#").append(t.getName()).append(" "));
-                    tagBuilder.deleteCharAt(tagBuilder.length() - 1);
+                    StringBuilderUtil.deleteCharAtLast(tagBuilder);
                     excel.setTags(tagBuilder.toString());
                     excel.setDesc(n.getDesc());
 
                     StringBuilder imageUrlBuilder = new StringBuilder();
                     n.getImageList().stream().forEach(i -> imageUrlBuilder.append(i.getUrl()).append("?imageView2/2").append("\n"));
-                    tagBuilder.deleteCharAt(tagBuilder.length() - 1);
-                    tagBuilder.deleteCharAt(tagBuilder.length() - 1);
+                    StringBuilderUtil.deleteCharAtLast(imageUrlBuilder);
                     excel.setImageUrls(imageUrlBuilder.toString());
                     return excel;
                 }).collect(Collectors.toList());
