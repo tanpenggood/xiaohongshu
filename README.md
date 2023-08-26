@@ -85,3 +85,7 @@ xiaohongshu
 ```bash
 mvn clean package -Dmaven.test.skip=true
 ```
+
+# Download exe
+
+[https://github.com/tanpenggood/xiaohongshu/releases](https://github.com/tanpenggood/xiaohongshu/releases)
